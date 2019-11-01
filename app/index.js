@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Tile from '~/components/Tile';
+
 function Root() {
   return (
     <div>
-      <h1>TETRIS</h1>
+      <Tile />
     </div>
   );
 }
