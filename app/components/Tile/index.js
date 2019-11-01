@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Container from './Container';
 
-import { boxSize, boxBGColor, boxBorderColor } from '~/constants';
+import { boxBorderColor } from '~/constants';
 
 function Tile(props) {
   const { size, color, borderColor } = props;
@@ -11,14 +11,12 @@ function Tile(props) {
 }
 
 Tile.propTypes = {
-  size: PropTypes.number,
-  color: PropTypes.string,
+  size: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
   borderColor: PropTypes.string,
 };
 
 Tile.defaultProps = {
-  size: boxSize,
-  color: boxBGColor,
   borderColor: boxBorderColor,
 };
 

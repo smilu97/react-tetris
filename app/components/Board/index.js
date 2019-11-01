@@ -6,15 +6,26 @@ import Container from './Container';
 
 import Tile from '~/components/Tile';
 
-import { rowsNumOnBoard, colsNumOnBoard, boxSize } from '~/constants';
+const mapTileStateToColor = ['gray', 'red', 'green', 'blue'];
 
 function Board(props) {
-  const { rowsNum, colsNum } = props;
+  const { rowsNum, colsNum, boxSize, tileShape } = props;
   const itemsNum = rowsNum * colsNum;
 
-  const boxes = lodash
-    .range(0, itemsNum)
-    .map(i => <Tile size={boxSize} key={i} />);
+  if (tileShape.length < itemsNum) {
+    throw 'The length of tileShape must be same or bigger than rowsNum * colsNum';
+  }
+
+  function renderNthTile(index) {
+    const key = tileShape[index];
+    const color = mapTileStateToColor[key];
+    if (color === undefined) {
+      throw `Invalid item value of tileShape: ${key}`;
+    }
+    return <Tile key={index} color={color} size={boxSize} />;
+  }
+
+  const boxes = lodash.range(0, itemsNum).map(renderNthTile);
 
   const containerWidth = colsNum * boxSize;
   const containerHeight = rowsNum * boxSize;
@@ -26,13 +37,10 @@ function Board(props) {
 }
 
 Board.propTypes = {
-  rowsNum: PropTypes.number,
-  colsNum: PropTypes.number,
-};
-
-Board.defaultProps = {
-  rowsNum: rowsNumOnBoard,
-  colsNum: colsNumOnBoard,
+  rowsNum: PropTypes.number.isRequired,
+  colsNum: PropTypes.number.isRequired,
+  boxSize: PropTypes.number.isRequired,
+  tileShape: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default Board;

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Board from '~/components/Board';
+import Tetris from '~/components/Tetris';
 
 function Root() {
   return (
     <div>
-      <Board />
+      <Tetris />
     </div>
   );
 }
