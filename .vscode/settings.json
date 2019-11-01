@@ -1,4 +1,5 @@
 {
+  "editor.rulers": [80],
   "javascript.preferences.quoteStyle": "single",
   "typescript.preferences.quoteStyle": "single",
   "prettier.trailingComma": "all",

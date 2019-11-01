@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Tile from '~/components/Tile';
+import Board from '~/components/Board';
 
 function Root() {
   return (
     <div>
-      <Tile />
+      <Board />
     </div>
   );
 }
