@@ -1,0 +1,20 @@
+{
+  "name": "react-tetris",
+  "version": "0.0.1",
+  "description": "TETRIS implementation by smilu97",
+  "main": "index.js",
+  "author": "smilu97",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "parcel app/index.html"
+  },
+  "dependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
