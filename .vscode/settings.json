@@ -1,0 +1,7 @@
+{
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.trailingComma": "all",
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true
+}
