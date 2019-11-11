@@ -1,21 +1,87 @@
-import lodash from 'lodash';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
 
 import { rowsNumOnBoard, colsNumOnBoard, boxSize } from '~/constants';
 
 import Board from '~/components/Board';
+import { createTetrisGame } from '~/tetris';
 
 function Tetris(props) {
   const { rowsNum, colsNum, boxSize } = props;
-  const itemsNum = rowsNum * colsNum;
-  const [tileShape] = useState(lodash.range(0, itemsNum).fill(0));
+
+  const [, setUpdater] = useState(false);
+  const [tetris] = useState(
+    createTetrisGame({
+      rowsNum,
+      colsNum,
+    }),
+  );
+
+  const forceUpdate = () => {
+    setUpdater(u => !u);
+  };
+
+  const {
+    getPrinterBuffer,
+    tick,
+    moveDown,
+    moveRight,
+    moveLeft,
+    rotateClockwise,
+    rotateCounterClockwise,
+    dropControl,
+  } = tetris;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      tick();
+      forceUpdate();
+    }, 500);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handlers = {
+      arrowleft: () => {
+        moveLeft();
+      },
+      arrowright: () => {
+        moveRight();
+      },
+      arrowdown: () => {
+        moveDown();
+      },
+      arrowup: () => {
+        rotateClockwise();
+      },
+      space: () => {
+        dropControl();
+      },
+      z: () => {
+        rotateCounterClockwise();
+      },
+    };
+    const keydownHandler = ({ code }) => {
+      const handler = handlers[code.toLowerCase()];
+      if (handler !== undefined) {
+        handler();
+        forceUpdate();
+      }
+    };
+    window.addEventListener('keydown', keydownHandler);
+    return () => {
+      window.removeEventListener('keydown', keydownHandler);
+    };
+  }, []);
+
   return (
     <Board
       rowsNum={rowsNum}
       colsNum={colsNum}
       boxSize={boxSize}
-      tileShape={tileShape}
+      tileShape={getPrinterBuffer()}
     />
   );
 }
